@@ -9,8 +9,15 @@ export const ButtonContainer = styled.button`
     box - shadow: none;
     border - radius: 3px;
     color: ${props => props.cart ? "var(--mainYellow)" : "var(--lightBlue)"}; 
-    &: hover{
-    background: var(--lightBlue);
-    color: white;
+    &:not([disabled]) {
+        &: hover{
+        background: var(--lightBlue);
+        color: white;
+        }
+    }
+    &[disabled] {
+        color: var(--mainGrey);
+        border-color: var(--mainGrey);
+    }
 }
 `
