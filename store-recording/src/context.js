@@ -32,8 +32,8 @@ class ProductsProvider extends Component {
         console.log("hello from details");
     }
 
-    addToCart = () => {
-        console.log("hello from Add to cart");
+    addToCart = (id) => {
+        console.log(`hello from Add to cart ${id}`);
     }
 
     render() {
