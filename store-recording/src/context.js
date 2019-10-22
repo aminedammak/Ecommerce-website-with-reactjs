@@ -11,7 +11,7 @@ class ProductsProvider extends Component {
     state = {
         products: storeProducts,
         detailsProduct: detailProduct,
-        cart: storeProducts,
+        cart: [],
         modalOpened: false,
         productInModal: {}
     }
@@ -76,6 +76,42 @@ class ProductsProvider extends Component {
         this.setState({ modalOpened: false })
     }
 
+    increment = (id) => {
+        let productsListTemp = [...this.state.products];
+
+        //Get the index of the product to be incremented in the products array
+        productsListTemp[id - 1].count += 1;
+        productsListTemp[id - 1].total = productsListTemp[id - 1].price * productsListTemp[id - 1].count;
+
+        //update the state
+        this.setState(state => {
+            return {
+                products: productsListTemp
+            }
+        })
+
+    }
+
+    decrement = (id) => {
+        let productsListTemp = [...this.state.products];
+
+        //Get the index of the product to be incremented in the products array
+        if (productsListTemp[id - 1].count > 0) {
+            productsListTemp[id - 1].count -= 1;
+            productsListTemp[id - 1].total = productsListTemp[id - 1].price * productsListTemp[id - 1].count;
+
+            //update the state
+            this.setState(state => {
+                return {
+                    products: productsListTemp
+                }
+            });
+        } else {
+            console.log("alreayd zero");
+        }
+
+    }
+
     render() {
         return (
             <ProductContext.Provider value={{
@@ -83,7 +119,9 @@ class ProductsProvider extends Component {
                 handleDetail: this.handleDetail,
                 addToCart: this.addToCart,
                 openModal: this.openModal,
-                closeModal: this.closeModal
+                closeModal: this.closeModal,
+                increment: this.increment,
+                decrement: this.decrement
             }}>
                 {this.props.children}
             </ProductContext.Provider>
